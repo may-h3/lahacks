@@ -3,9 +3,17 @@
     "name": "la hacks project",
     "version": "1.0",
     "description": "site screen time",
+    "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+          "32": "apidlogo.png" }
+    },
     "permissions": [
         "tabs",
-        "webNavigation"
+        "webNavigation",
+        "activeTab", 
+        "browsingData", 
+        "history"
     ],
     "background": {
         "service_worker": "background.js"
