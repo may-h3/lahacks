@@ -9,4 +9,4 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     var domain = url.split('/')[2];
     console.log("Current page: " + url);
     console.log("Current domain: " + domain);
-  
+})
