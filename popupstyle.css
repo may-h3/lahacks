@@ -1,0 +1,27 @@
+h2 {
+    text-align: center;
+}
+
+body
+{
+    width: 16rem;
+    font-family: 'DM Sans', sans-serif;
+    background-color: #ebf0fa;
+}
+
+#blacklist
+{
+    float: right;
+}
+
+button {
+    font-family : inherit;
+    font-size: 1rem;
+    border: 0px;
+    border-radius: 0.5rem;
+    margin: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding: 8px;
+    background-color: #b9caed;
+}
