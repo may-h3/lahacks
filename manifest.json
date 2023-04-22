@@ -6,7 +6,7 @@
     "action": {
     "default_popup": "popup.html",
     "default_icon": {
-          "32": "apid.png" }
+          "32": "apidlogo.png" }
     },
     "permissions": [
         "activeTab", "browsingData", "history"	
