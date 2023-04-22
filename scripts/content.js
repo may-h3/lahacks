@@ -27,4 +27,21 @@ if (article) {
   // rhs when lhs is null/undef otherwise return rhs fifth lowest 
   // operator precedence, can't combine w && and || wout ()
   (date ?? heading).insertAdjacentElement("afterend", badge);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const start = new Date().getTime();
+
+    let timeSpentScrolling = 0;
+
+    window.addEventListener('scroll', () => {
+        timeSpentScrolling += 1.8;
+    });
+
+    window.addEventListener("beforeunload", () => {
+        const end = new Date().getTime();
+        const totalTime = (end - start - timeSpentScrolling) / 1000
+
+        console.log(totalTime)
+    });
+  });
 }
