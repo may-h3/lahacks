@@ -3,6 +3,14 @@
     "name": "reading time",
     "version": "1.0",
     "description": "Add the reading time to Chrome Extension documentation articles",
+    "browser_action": {    
+        "default_icon": "apidlogo.png",
+        "default_popup": "popup.html",    
+        "default_title": "do ur work lol"
+    },
+    "permissions": [
+        "activeTab", "browsingData", "history"	
+    ],
     "content_scripts": [
         {
             "js": ["scripts/content.js"],
