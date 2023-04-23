@@ -11,22 +11,6 @@ var startTimeStamp;
 var oldURL;
 var calculation;
 
-// A way to check if user actually changed the page:
-//      check if they committed something
-//      AND if a new page completely loaded onCompleted
-
-// Scenario: blacklisted site --> notblacklisted site
-// on YouTube
-//      isBlacklisted = true
-// go to Reddit
-//      would go into for loop
-//      would go into else statement
-//      would change isBlacklisted to false
-//      if isBlacklisted is true, then take next URL and compare it to old URL
-//          if same, then do nothing
-//          if different, then take timeStamp
-//          and do calculation
-
 // Listens for whenever a page is fully loaded.
 chrome.webNavigation.onCompleted.addListener(
     // take the timestamp of when a relevant page is fully loaded
@@ -36,29 +20,50 @@ chrome.webNavigation.onCompleted.addListener(
         // Compares current URL to any of the blacklistedURLs
         for (let i = 0; i < blacklistedURLs.length; i++)
         {
-            if (details.url == blacklistedURLs[i]) {
-                console.log("This URL is blacklisted!");
+            if (details.url == blacklistedURLs[i]) { // curURL is blacklisted
+                console.log("This URL is blacklisted!"); // for debug
 
                 isBlackListed = true;
-                oldURL = details.url;
+                oldURL = details.url; // update url var
                 startTimeStamp = details.timeStamp;
 
-                console.log("startTimeStamp: " + startTimeStamp);
+                console.log("startTimeStamp: " + startTimeStamp); // for debug
             } else {
                 console.log("This URL is not blacklisted!");
 
-                if (isBlackListed) {
-                    if (oldURL != details.url) {
-                        console.log("endTimeStamp: " + details.timeStamp);
-                        calculated = details.timeStamp - startTimeStamp;
+                if (isBlackListed && (details.frameId == 0)) { // blacklisted parent frame
+                    if (oldURL != details.url) { // make sure page wasn't simply reloaded
+                        console.log("endTimeStamp: " + details.timeStamp); //for debug
+                        calculated = details.timeStamp - startTimeStamp; // calculate time spent on page
 
-                        console.log("calculated: " + calculated);
+                        var unit;
+                        // convert calculated time into better units
+                        if (calculated/60000 < 1) {
+                            calculated /= 1000; // convert to seconds
+                            unit = "seconds";
+                        } else if (calculated/3600000 < 1) {
+                            calculated /= 60000; // convert to minutes
+                            unit = "minutes";
+                        } else if (calculated/86400000 < 1) {
+                            calculated /= 3600000 // convert to hours
+                            unit = "hours";
+                        } else {
+                            calculated /= 86400000 // convert to days
+                            unit = "days";
+                        }
+
+                        console.log("calculated: " + calculated + " " + unit); // for debug
                     }
                 }
             }
         }
     }
 );
+
+// things to do:
+// blacklist to blacklist
+// nonblacklist to blacklist
+// make code more efficient ie just ignore if its a child frame 
 
 
 
@@ -139,12 +144,12 @@ chrome.webNavigation.onCompleted.addListener(
 // });
 // })
 
-chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    var tab = tabs[0];
-    var url = tab.url;
-    var domain = url.split('/')[2];
-    console.log("Current page: " + url);
-    console.log("Current domain: " + domain);
+// chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+//     var tab = tabs[0];
+//     var url = tab.url;
+//     var domain = url.split('/')[2];
+//     console.log("Current page: " + url);
+//     console.log("Current domain: " + domain);
 
     // webNav code - ie anything happening within the tab itself
     // chrome.webNavigation.onBeforeNavigate.addListener(function() {
@@ -154,11 +159,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
 
     // });
 
-    chrome.webNavigation.onCommitted.addListener(function() {
-        console.log("commit detected");
-        url = tab.url;
-        userActivityLog.push("successfully navigated away from: " + url);
-    });
+    // chrome.webNavigation.onCommitted.addListener(function() {
+    //     console.log("commit detected");
+    //     url = tab.url;
+    //     userActivityLog.push("successfully navigated away from: " + url);
+    // });
 
     // chrome.webNavigation.onDOMContentLoaded.addListener(function() {
     //     console.log("dom content loaded");
@@ -178,5 +183,5 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     //     console.log("tab was updated!");
     // });
 
-    console.log("after listeners: " + url);
-});
+//     console.log("after listeners: " + url);
+// });
