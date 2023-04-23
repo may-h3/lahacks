@@ -14,7 +14,7 @@ var calculation;
 chrome.webNavigation.onCompleted.addListener(
     // Takes the timestamp of when a relevant page is fully loaded
     (details) => {
-        console.log("onCompleted URL: " + details.url);
+        // console.log("onCompleted URL: " + details.url);
 
         // Compares current URL to any of the blacklistedURLs
         for (let i = 0; i < blacklistedURLs.length; i++)
@@ -28,10 +28,10 @@ chrome.webNavigation.onCompleted.addListener(
                 startTimeStamp = details.timeStamp;
 
                 console.log("startTimeStamp: " + startTimeStamp);
-                console.log("isBlackListed in equals: " + isBlackListed);
+                // console.log("isBlackListed in equals: " + isBlackListed);
             } else {
                 console.log("This URL is not blacklisted!");
-                console.log("isBlackListed in not equals: " + isBlackListed);
+                // console.log("isBlackListed in not equals: " + isBlackListed);
 
                 if (isBlackListed && (details.frameId == 0)) {
                     if (oldURL != details.url) {
