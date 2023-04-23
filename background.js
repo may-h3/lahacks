@@ -1,9 +1,8 @@
 console.log(chrome);
 console.log("I'm debugging");
 
-var userActivityLog = [];
+var userActivityLog = new Map();
 var blacklistedURLs = ["https://www.youtube.com/"];
-var timeStamps = [];
 
 var isBlackListed = false;
 var isCommitted = false;
@@ -28,13 +27,24 @@ chrome.webNavigation.onCompleted.addListener(
                 startTimeStamp = details.timeStamp;
 
                 console.log("startTimeStamp: " + startTimeStamp);
+                console.log("isBlackListed in equals: " + isBlackListed);
             } else {
                 console.log("This URL is not blacklisted!");
+                console.log("isBlackListed in not equals: " + isBlackListed);
 
                 if (isBlackListed && (details.frameId == 0)) {
                     if (oldURL != details.url) {
                         console.log("endTimeStamp: " + details.timeStamp);
                         calculated = details.timeStamp - startTimeStamp;
+                        if (userActivityLog.has(oldURL))
+                        {
+                            userActivityLog.set(oldURL, calculated + userActivityLog.get(oldURL));
+                        }
+                        else
+                        {
+                            userActivityLog.set(oldURL, calculated);
+                        }
+                        isBlackListed = false;
 
                         console.log("calculated: " + calculated);
                     }
