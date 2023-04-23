@@ -12,7 +12,7 @@ var calculation;
 
 // Listens for whenever a page is fully loaded.
 chrome.webNavigation.onCompleted.addListener(
-    // take the timestamp of when a relevant page is fully loaded
+    // Takes the timestamp of when a relevant page is fully loaded
     (details) => {
         console.log("onCompleted URL: " + details.url);
 
@@ -22,8 +22,9 @@ chrome.webNavigation.onCompleted.addListener(
             if (details.url == blacklistedURLs[i]) {
                 console.log("This URL is blacklisted!");
 
+                // Sets variables to keep track of data
                 isBlackListed = true;
-                oldURL = details.url;
+                oldURL = details.url; 
                 startTimeStamp = details.timeStamp;
 
                 console.log("startTimeStamp: " + startTimeStamp);
@@ -47,6 +48,24 @@ chrome.webNavigation.onCompleted.addListener(
                         isBlackListed = false;
 
                         console.log("calculated: " + calculated);
+
+                        // var unit;
+                        // // convert calculated time into better units
+                        // if (calculated/60000 < 1) {
+                        //     calculated /= 1000; // convert to seconds
+                        //     unit = "seconds";
+                        // } else if (calculated/3600000 < 1) {
+                        //     calculated /= 60000; // convert to minutes
+                        //     unit = "minutes";
+                        // } else if (calculated/86400000 < 1) {
+                        //     calculated /= 3600000 // convert to hours
+                        //     unit = "hours";
+                        // } else {
+                        //     calculated /= 86400000 // convert to days
+                        //     unit = "days";
+                        // }
+
+                        // console.log("calculated: " + calculated + " " + unit); // for debug
                     }
                 }
             }
