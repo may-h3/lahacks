@@ -3,6 +3,21 @@ console.log("I'm debugging");
 
 let userActivityLog = [];
 
+// chrome.tabs.onUpdated.addListener((tabId, changeInfo, Tab) => {
+//     console.log("tab was updated!");
+//     console.log(Tab.url);
+// });
+
+// chrome.tabs.addEventListener("DOMContentLoaded", () => {
+//     const start = new Date().getTime();
+//     window.addEventListener("beforeunload", () => {
+//         const end = new Date().getTime();
+//         const totalTime = (end - start) / 1000
+    
+//         console.log(totalTime)
+//     });
+// });
+
 chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     var tab = tabs[0];
     var url = tab.url;
@@ -11,11 +26,12 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     console.log("Current domain: " + domain);
 
     // webNav code - ie anything happening within the tab itself
-    chrome.webNavigation.onBeforeNavigate.addListener(function() {
-        console.log("navigation detected")
-        url = tab.url;
-        userActivityLog.push("navigating away from: " + url); // push some data into array
-    });
+    // chrome.webNavigation.onBeforeNavigate.addListener(function() {
+    //     console.log("navigation detected")
+    //     url = tab.url;
+    //     userActivityLog.push("navigating away from: " + url); // push some data into array
+
+    // });
 
     chrome.webNavigation.onCommitted.addListener(function() {
         console.log("commit detected");
@@ -23,17 +39,23 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         userActivityLog.push("successfully navigated away from: " + url);
     });
 
-    chrome.webNavigation.onDOMContentLoaded.addListener(function() {
-        console.log("dom content loaded");
-        url = tab.url;
-        userActivityLog.push(url + "'s dom loaded");
-    }); // console always displays beforenav, oncommit, domcontent in that
-    // order is that because of the way i coded it
+    // chrome.webNavigation.onDOMContentLoaded.addListener(function() {
+    //     console.log("dom content loaded");
+    //     url = tab.url;
+    //     userActivityLog.push(url + "'s dom loaded");
+    // }); // console always displays beforenav, oncommit, domcontent in that
+    // // order is that because of the way i coded it
 
-    chrome.webNavigation.onCompleted.addListener(function(timeStamp) {
-        console.log("smth completed?"); // doc + all referred resources comp loaded + initalized
-        // url = tab.url;
-        console.log(url);
-        userActivityLog.push("smth completed at: " + url);
-    });
+    // chrome.webNavigation.onCompleted.addListener((details) => {
+    //     console.log("smth completed?"); // doc + all referred resources comp loaded + initalized
+    //     console.log(details.url);
+    //     userActivityLog.push("smth completed at: " + details.url);
+    // });
+
+    // // trying stuff !
+    // chrome.tabs.onUpdated.addListener(() => {
+    //     console.log("tab was updated!");
+    // });
+
+    console.log("after listeners: " + url);
 });
