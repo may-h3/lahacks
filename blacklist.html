@@ -8,10 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css"
 integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+
+
 </head>
 <body>
-<button class = "back"><a href="popup.html"><i class="fa fa-arrow-left"></a></i></button>
-<h2> Blacklisted websites </h2>
 
+<button class = "back"><a href="popup.html"><i class="fa fa-arrow-left"></a></i></button>
+<h2 id = "bla"> Blacklisted websites </h2>
+<ul id = "myList">
+</ul>
+<div id="formDiv">
+    <form id="websiteForm" method="post">
+        <label for="websiteURL" >URL:</label>
+        <input type="text" id="websiteURL" placeholder="twitter.com" required autofocus>
+        <button type="submit" id="blockButton">Block</button>
+    </form>
+</div>
+<div class = "cleardiv">
+    <button id = "clearButton">Clear blacklist</button>
+</div>
+<script src="blacklist.js" defer></script>
 </body>
 </html>

@@ -35,7 +35,36 @@ button {
     background-color: #b9caed;
 }
 
+#blockButton {
+    font-size: 0.7rem;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+label {
+    font-size: 0.7rem;
+    padding: 8px;
+}
+
 .back {
     background-color: transparent;
     padding: 0;
+}
+
+#clearButton {
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: #d69898;
+}
+
+.cleardiv {
+    text-align: center;
+}
+
+ul {
+    font-size: 1rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem;
 }

@@ -13,7 +13,8 @@
         "webNavigation",
         "activeTab", 
         "browsingData", 
-        "history"
+        "history",
+        "storage"
     ],
     "background": {
         "service_worker": "background.js"
